@@ -85,3 +85,66 @@ RStudio 是一個 IDE，提供圖形化介面，幫助我們更輕鬆地操作 R
     library("dplyr")
     arrange(data, Sepal.Length)
     
+# 2017/02/18
+
+## 飯粒資料
+
+首先請先下載飯粒資料： [台北市交通事故資料](https://drive.google.com/open?id=1MvyXiyolhs-NzPa61FDqktyzyptrX2wf5-1rXo7SdU0)，飯粒資料整理自 [台北市政府公開資料](http://data.taipei/opendata/datalist/datasetMeta?oid=2f238b4f-1b27-4085-93e9-d684ef0e2735)
+
+## 準備工作
+### library 下載：ggplot2, dplyr
+
+RStudio 右下角區域，有一個 tab 叫作 `Packages`，找找看是否清單裡已經有 `ggplot2` 和 `dplyr` 兩個 library，如果沒有的話，按下 `install` 並分別 library。如果想要自行安裝，可以在左邊 console 中鍵入：
+
+    install.packages("ggplot2")
+    install.packages("dplyr")
+
+### 載入 library
+
+在library前面的小框框打勾即可！如果想使用 console，可鍵入：
+
+    library("ggplot2")
+    library("dplyr")
+
+### 讀取資料
+
+按下右上角 `import dataset`，並選擇你要匯入的檔案即可。手動的話，請輸入：
+
+    traffic2 = read.csv("~/Documents/R/traffic2.csv")
+
+## 開始畫圖！（進度怎麼有點快）
+### 發現上次好像沒教直方圖 hist()，先補一下進度
+
+`hist()` 直方圖是我們的好朋友，和上次的 `plot()` 一樣，可以很快看一下一組資料的分佈。 `hist()` 主要是用來看一組純數值資料中的分配狀況。`plot()`則是同時看兩組純數值(?)資料以及他們的相關情形。不過我看了半天，這組資料大概只有 `年齡` 是比較連續的數值資料，所以我們用 `年齡` 這一欄來看看 `hist()`怎麼使用吧。
+
+    hist(traffic2$年齡[traffic2$年齡>0])
+    
+值得注意的是，這組資料的列舉方法，和我們的直覺略有不同。一般而言，我們會覺得每一列就是一場車禍，但實際上為了詳列每位當事人的狀況，資料中每一列代表的是車禍中的一位當事人，也就是說，如果一場車禍有 4 位當事人，這場車禍在這組資料就會有 4 列。這 4 列的時間、地點、受傷人數及死亡人數都是相同的，只有當事人序車種、性別、年齡、受傷程度是不同的。剛剛屁話了這麼多，只是要說：上圖畫出來的並不是「所有肇事者」的年齡分佈，而是「肇事者和衰小被捲入車禍事件的所有當事人」的年齡分佈喔。
+
+    hist(traffic2$年齡[traffic2$年齡>0 & traffic2$性別 == "女"])
+    hist(traffic2$年齡[traffic2$年齡>0 & traffic2$性別 == "男"])
+    
+身為喜愛引戰的人類，我們當然也可以分別來畫畫男性和女性的年齡分布圖。（Plots 下面的兩個小箭頭可以往返你所有畫過的圖喔。）雖然兩張圖看起來有微妙的不同，不過既然包括了所有無辜捲入ㄉ人們，我們很難只用這兩張圖就說男性跟女性在交通事故的出現機率不同就是ㄌ～～～
+
+### 言歸正傳，ggplot2 來也
+
+首先，我們來認識一下 `ggplot2` 程式碼的組成。畫圖的第一件事就是跟 R 說：ㄟ我們要開一張 `ggplot2` 的畫布，畫 `traffic2` 這個資料。
+
+    ggplot(traffic2)
+
+沒錯，方法就是這麼簡單，輸入`ggplot2(資料的名字)`即可。不過我們通常會先把他存到一個變數裡頭，方便我們等等叫他出來面對：
+
+    c = ggplot(traffic2)
+
+接下來再告訴 R 我們到底要畫啥。使用`geom_bar()`招喚出長條圖，並秉持著戰男女的精神，繼續來畫性別。這時候把長條圖加在我們原本的畫布 `c` 上面。
+
+    c + geom_bar(aes(性別))
+
+好的， R 什麼反應都沒有，完全不知道他做了啥，這時候再輸入`c`就可以把圖招喚出來。
+
+    c
+
+沒有意外ㄉ話，大家會看到一張，很多方格子的圖⋯⋯用中文(?)來說的話，就是亂碼。只好來拯救它一下。
+
+    c + theme(text=element_text(family="Noto Sans CJK TC", size=12))
+    
