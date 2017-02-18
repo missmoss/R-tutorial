@@ -163,3 +163,81 @@ ggplot2 基本上就是以 `+` 把畫布上不同的元素跟設定放在一起�
         coord_flip() + #把他轉90度
         theme(text=element_text(family="Noto Sans CJK TC", size=12)) #設定字型
     g #呼喚他
+
+時間來不及ㄌ，下面是各種圖ㄉcode⋯⋯一次貼一組蛤
+
+    # 我是一張圖
+    g = ggplot(traffic2, aes(道路型態, fill=性別)) + geom_bar() + coord_flip()+ 
+      theme(text=element_text(family="Noto Sans CJK TC", size=12))
+    g
+
+    # 我是一張圖
+    g = ggplot(traffic2, aes(車種, fill=性別)) + geom_bar() + coord_flip()+ 
+      theme(text=element_text(family="Noto Sans CJK TC", size=12))
+
+    # 我是一張圖
+    g = ggplot(traffic2, aes(車種, fill=受傷程度)) + geom_bar() + coord_flip()+ 
+      theme(text=element_text(family="Noto Sans CJK TC", size=12))
+    g
+
+    # 我是一張圖
+    g = ggplot(traffic2, aes(車種, fill=處理別)) + geom_bar() + coord_flip()+ 
+      theme(text=element_text(family="Noto Sans CJK TC", size=12))
+    g
+
+    # 我在整理資料
+    t1 = filter(traffic2, 當事人序==1)
+    t1$發生月 = as.factor(t1$發生月)
+    t2 = filter(traffic2, 當事人序==2)
+
+    # 我是一張圖
+    g = ggplot(t1, aes(區序, fill=性別)) + geom_bar() + coord_flip()+ 
+      theme(text=element_text(family="Noto Sans CJK TC", size=12))
+    g
+
+    # 我是一張圖
+    g = ggplot(t1, aes(發生月, fill=性別)) + geom_bar() + 
+      theme(text=element_text(family="Noto Sans CJK TC", size=12))
+    g
+
+    g = ggplot(t1, aes(車種, fill=處理別)) + geom_bar() + coord_flip()+ 
+      theme(text=element_text(family="Noto Sans CJK TC", size=12))
+    g
+
+    # 我是一張圖
+    g = ggplot(t1, aes(速限, fill=處理別)) + geom_bar() + coord_flip()+ 
+      theme(text=element_text(family="Noto Sans CJK TC", size=12))
+    g
+
+    # 我在整理資料
+    df1 = t1 %>%
+      group_by(發生時, 處理別) %>%
+      summarise(次數 = sum(當事人序), 受傷人數 = sum(受傷人數), 死亡人數 = sum(死亡人數))
+
+    # 我是一張圖
+    g = ggplot(df1, aes(發生時, 次數, colour=處理別)) + geom_line() + 
+      theme(text=element_text(family="Noto Sans CJK TC", size=12))
+    g
+
+    # 我在整理資料
+    df2 = filter(df1, 處理別 == "重大")
+
+    # 我是一張圖
+    g = ggplot(df2, aes(發生時, 次數, colour=處理別)) + geom_line() + 
+      theme(text=element_text(family="Noto Sans CJK TC", size=12))
+    g
+
+    # 我在整理資料
+    df3 = filter(df1, 死亡人數 > 0)
+
+    # 我是一張圖
+    g = ggplot(df3, aes(發生時, 次數)) + geom_line() + 
+      theme(text=element_text(family="Noto Sans CJK TC", size=12))
+    g
+
+    # 我是一張圖
+    g = ggplot(df1, aes(發生時, 受傷人數, colour=處理別)) + geom_line() + 
+      theme(text=element_text(family="Noto Sans CJK TC", size=12))
+    g
+
+
