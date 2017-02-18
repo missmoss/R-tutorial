@@ -150,7 +150,7 @@ RStudio 右下角區域，有一個 tab 叫作 `Packages`，找找看是否清�
 
 沒有意外ㄉ話，大家會看到一張，很多方格子的圖⋯⋯用中文(?)來說的話，就是亂碼。只好來拯救它一下。
 
-    c + theme(text=element_text(family="Noto Sans CJK TC", size=12))
+    c + theme(text=element_text(family="STHeiti", size=12))
 
 這時候再招喚 `c` 就會得到一張比較正常ㄉ圖了。
 
@@ -161,28 +161,28 @@ ggplot2 基本上就是以 `+` 把畫布上不同的元素跟設定放在一起�
     g = ggplot(traffic2) + #開畫布
         geom_bar(aes(車種, fill=處理別)) + #我要畫車種的長條圖！還要用處理別填色
         coord_flip() + #把他轉90度
-        theme(text=element_text(family="Noto Sans CJK TC", size=12)) #設定字型
+        theme(text=element_text(family="STHeiti", size=12)) #設定字型
     g #呼喚他
 
 時間來不及ㄌ，下面是各種圖ㄉcode⋯⋯一次貼一組蛤
 
     # 我是一張圖
     g = ggplot(traffic2, aes(道路型態, fill=性別)) + geom_bar() + coord_flip()+ 
-      theme(text=element_text(family="Noto Sans CJK TC", size=12))
+      theme(text=element_text(family="STHeiti", size=12))
     g
 
     # 我是一張圖
     g = ggplot(traffic2, aes(車種, fill=性別)) + geom_bar() + coord_flip()+ 
-      theme(text=element_text(family="Noto Sans CJK TC", size=12))
+      theme(text=element_text(family="STHeiti", size=12))
 
     # 我是一張圖
     g = ggplot(traffic2, aes(車種, fill=受傷程度)) + geom_bar() + coord_flip()+ 
-      theme(text=element_text(family="Noto Sans CJK TC", size=12))
+      theme(text=element_text(family="STHeiti", size=12))
     g
 
     # 我是一張圖
     g = ggplot(traffic2, aes(車種, fill=處理別)) + geom_bar() + coord_flip()+ 
-      theme(text=element_text(family="Noto Sans CJK TC", size=12))
+      theme(text=element_text(family="STHeiti", size=12))
     g
 
     # 我在整理資料
@@ -192,21 +192,21 @@ ggplot2 基本上就是以 `+` 把畫布上不同的元素跟設定放在一起�
 
     # 我是一張圖
     g = ggplot(t1, aes(區序, fill=性別)) + geom_bar() + coord_flip()+ 
-      theme(text=element_text(family="Noto Sans CJK TC", size=12))
+      theme(text=element_text(family="STHeiti", size=12))
     g
 
     # 我是一張圖
     g = ggplot(t1, aes(發生月, fill=性別)) + geom_bar() + 
-      theme(text=element_text(family="Noto Sans CJK TC", size=12))
+      theme(text=element_text(family="STHeiti", size=12))
     g
 
     g = ggplot(t1, aes(車種, fill=處理別)) + geom_bar() + coord_flip()+ 
-      theme(text=element_text(family="Noto Sans CJK TC", size=12))
+      theme(text=element_text(family="STHeiti", size=12))
     g
 
     # 我是一張圖
     g = ggplot(t1, aes(速限, fill=處理別)) + geom_bar() + coord_flip()+ 
-      theme(text=element_text(family="Noto Sans CJK TC", size=12))
+      theme(text=element_text(family="STHeiti", size=12))
     g
 
     # 我在整理資料
@@ -216,7 +216,7 @@ ggplot2 基本上就是以 `+` 把畫布上不同的元素跟設定放在一起�
 
     # 我是一張圖
     g = ggplot(df1, aes(發生時, 次數, colour=處理別)) + geom_line() + 
-      theme(text=element_text(family="Noto Sans CJK TC", size=12))
+      theme(text=element_text(family="STHeiti", size=12))
     g
 
     # 我在整理資料
@@ -224,7 +224,7 @@ ggplot2 基本上就是以 `+` 把畫布上不同的元素跟設定放在一起�
 
     # 我是一張圖
     g = ggplot(df2, aes(發生時, 次數, colour=處理別)) + geom_line() + 
-      theme(text=element_text(family="Noto Sans CJK TC", size=12))
+      theme(text=element_text(family="STHeiti", size=12))
     g
 
     # 我在整理資料
@@ -232,12 +232,12 @@ ggplot2 基本上就是以 `+` 把畫布上不同的元素跟設定放在一起�
 
     # 我是一張圖
     g = ggplot(df3, aes(發生時, 次數)) + geom_line() + 
-      theme(text=element_text(family="Noto Sans CJK TC", size=12))
+      theme(text=element_text(family="STHeiti", size=12))
     g
 
     # 我是一張圖
     g = ggplot(df1, aes(發生時, 受傷人數, colour=處理別)) + geom_line() + 
-      theme(text=element_text(family="Noto Sans CJK TC", size=12))
+      theme(text=element_text(family="STHeiti", size=12))
     g
 
 
